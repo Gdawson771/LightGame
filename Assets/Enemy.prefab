@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2860529399562093465}
   - component: {fileID: 2860529399562093463}
   - component: {fileID: 2860529399562093460}
+  - component: {fileID: 983667742830779267}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -48,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -119,6 +121,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &983667742830779267
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860529399562093464}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.38
 --- !u!1 &2860529400279456294
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +151,7 @@ GameObject:
   - component: {fileID: 2860529400279456290}
   - component: {fileID: 2860529400279456291}
   - component: {fileID: 2860529400279456288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
