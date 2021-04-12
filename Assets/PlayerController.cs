@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 startPos;
     private DistanceJoint2D joint;
     private GameManager gm;
-    private Light2D torch;
+    private UnityEngine.Experimental.Rendering.Universal.Light2D torch;
     private Rigidbody2D rb;
     private Vector2 startDrag;
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         joint = gameObject.GetComponent<DistanceJoint2D>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        torch = gameObject.transform.Find("Torch").GetComponent<Light2D>();
+        torch = gameObject.transform.Find("Torch").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         torchCollider = gameObject.transform.Find("Torch").GetComponent<TorchCollider>();
         rb.freezeRotation = true;
         powerUpSpriteMask = gameObject.transform.Find("PowerUpSpriteMask");

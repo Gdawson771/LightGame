@@ -6,12 +6,12 @@ using Pathfinding;
 public class TorchCollider : MonoBehaviour
 {
     public PolygonCollider2D collider;
-    public Light2D torch;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D torch;
     public PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
-        torch = gameObject.GetComponent<Light2D>();
+        torch = gameObject.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         GenerateCollider();
 
     }

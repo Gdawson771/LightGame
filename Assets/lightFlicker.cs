@@ -5,7 +5,7 @@ using UnityEngine.Experimental.Rendering.LWRP;
 
 public class lightFlicker : MonoBehaviour
 {
-    private Light2D light;
+    private UnityEngine.Experimental.Rendering.Universal.Light2D light;
     private CircleCollider2D collider;
     private float flickerStartTime;
 
@@ -16,7 +16,7 @@ public class lightFlicker : MonoBehaviour
     //in update get random number, disable everything, enable after the flicker time 
     void Start()
     {
-        light = gameObject.GetComponent<Light2D>();
+        light = gameObject.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         collider = gameObject.GetComponent<CircleCollider2D>();
         flickerDuration = 3f;
         flickerStartTime=Time.time;
