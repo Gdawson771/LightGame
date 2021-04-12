@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
+using Pathfinding;
 
 public class lightFlicker : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class lightFlicker : MonoBehaviour
     //Get the point light and store that locally here
     //GET 2d box COLLIDER AND STORE THAT HERE
     //set variable for how many flickers per second
-    //in update get random number, disable everything, enable after the flicker time 
+    //in update get random number, disable everything, enable after the flicker time
     void Start()
     {
         light = gameObject.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
@@ -34,7 +35,19 @@ public class lightFlicker : MonoBehaviour
             flickerDuration = Random.Range(0.2f, 2f);
             flickerStartTime=Time.time;
             light.enabled = !light.enabled;
+            collider.enabled = !collider.enabled;
         }
         Debug.Log(Time.time);
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Enter");
+        col.gameObject.GetComponent<AIPath>().canMove = false;
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        Debug.Log("Exit");
+        col.gameObject.GetComponent<AIPath>().canMove = true;
     }
 }
