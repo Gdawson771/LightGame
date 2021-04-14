@@ -37,7 +37,6 @@ public class lightFlicker : MonoBehaviour
             light.enabled = !light.enabled;
             collider.enabled = !collider.enabled;
         }
-        Debug.Log(Time.time);
     }
 
     void OnTriggerEnter2D(Collider2D col)

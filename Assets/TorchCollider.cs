@@ -60,7 +60,7 @@ public class TorchCollider : MonoBehaviour
 
         precisionPoints[0] = transform.InverseTransformPoint(transform.parent.position);
         precisionPoints[1] = transform.InverseTransformPoint(negative);
-        
+
         for (int i = 0; i <= 8; i++) {
             float degreeIncrement = torchAngle / precisionPoints.Length;
             float x = radius * Mathf.Cos(Helpers.AngleModulus(negativeAngle, degreeIncrement * i + 1) * Mathf.Deg2Rad);
@@ -70,10 +70,6 @@ public class TorchCollider : MonoBehaviour
         }
         precisionPoints[precisionPoints.Length - 1] = transform.InverseTransformPoint(positive);
         collider.SetPath(0, precisionPoints);
-        Debug.Log(transform.position);
-        for (int i = 0; i <= precisionPoints.Length; i++) {
-            Debug.Log(precisionPoints[i]);
-        }
     }
     void OnTriggerEnter2D(Collider2D col)
     {
