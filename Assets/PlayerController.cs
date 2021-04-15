@@ -7,10 +7,8 @@ using Pathfinding;
 public class PlayerController : MonoBehaviour
 {
     public LayerMask objects;
-    public Rope rope;
     public AIPath aIPath;
     public Vector2 startPos;
-    private DistanceJoint2D joint;
     private GameManager gm;
     private UnityEngine.Experimental.Rendering.Universal.Light2D torch;
     private Rigidbody2D rb;
@@ -35,7 +33,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        joint = gameObject.GetComponent<DistanceJoint2D>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         torch = gameObject.transform.Find("Torch").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
@@ -43,7 +40,6 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
         powerUpSpriteMask = gameObject.transform.Find("PowerUpSpriteMask");
         startPos = transform.position;
-        joint.enabled = false;
 
 
         torchInnerRadius = torch.pointLightInnerRadius;
@@ -136,21 +132,6 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collide!");
-    }
-    public void reduceDistance()
-    {
-        joint.distance -= joint.distance * Time.deltaTime;
-    }
-
-    public void increaseDistance()
-    {
-        joint.distance += joint.distance * Time.deltaTime;
-
-    }
-    public DistanceJoint2D createAnchor(Vector3 position)
-    {
-
-        return joint;
     }
 
 

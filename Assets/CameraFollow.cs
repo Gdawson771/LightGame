@@ -28,7 +28,7 @@ public class CameraFollow : MonoBehaviour
         } else {
             Debug.Log("Here");
             if(speed != targetSpeed)
-                speed -= 0.1f;
+                speed -= 0.2f;
         }
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
