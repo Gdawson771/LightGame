@@ -9,28 +9,27 @@ public class CameraFollow : MonoBehaviour
     public float targetSpeed;
     public float speedDV;
     public float catchUpDistance;
-    private float speed;
+    public float speed;
 
     void Start()
     {
-
         player = GameObject.FindGameObjectWithTag("Player");
+        targetSpeed = speed;
     }
 
     void FixedUpdate()
     {
-
         Vector3 target = new Vector3( player.transform.position.x, player.transform.position.y, transform.position.z);
-        Debug.Log(Vector3.Distance(transform.position, target));
         if(Vector3.Distance(transform.position, target) > catchUpDistance) {
-            Debug.Log("Here 1");
-            speed += 0.1f;
+            Debug.Log("Here 2");
+
+            targetSpeed += 0.1f;
         } else {
-            Debug.Log("Here");
-            if(speed != targetSpeed)
-                speed -= 0.2f;
+            Debug.Log("Here 1");
+            Debug.Log(targetSpeed);
+            targetSpeed = speed;
         }
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, targetSpeed * Time.deltaTime);
 
     }
 }

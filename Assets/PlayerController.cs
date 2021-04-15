@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             torch.pointLightInnerRadius = Mathf.Lerp(torch.pointLightInnerRadius, 20f, torchSpeed * Time.deltaTime);
             torch.pointLightOuterRadius = Mathf.Lerp(torch.pointLightOuterRadius, 40f, torchSpeed * Time.deltaTime);
             torch.pointLightInnerAngle = Mathf.Lerp(torch.pointLightInnerAngle, 9f, torchSpeed * Time.deltaTime);
-            torch.pointLightOuterAngle = Mathf.Lerp(torch.pointLightOuterAngle, 9f, torchSpeed * Time.deltaTime);
+            torch.pointLightOuterAngle = Mathf.Lerp(torch.pointLightOuterAngle, torchOuterAngle, torchSpeed * Time.deltaTime);
         } else {
             torch.pointLightInnerRadius = Mathf.Lerp(torch.pointLightInnerRadius, torchInnerRadius, torchSpeed * Time.deltaTime);
             torch.pointLightOuterRadius = Mathf.Lerp(torch.pointLightOuterRadius, torchOuterRadius, torchSpeed * Time.deltaTime);
@@ -109,22 +109,22 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey("w"))
         {
-            rb.AddForce(Vector2.up * playerSpeed);
+            rb.AddForce(Vector2.up * playerSpeed  * Time.deltaTime );
         }
 
         if (Input.GetKey("a"))
         {
-            rb.AddForce(Vector2.left * playerSpeed);
+            rb.AddForce(Vector2.left * playerSpeed  * Time.deltaTime);
         }
 
         if (Input.GetKey("d"))
         {
-            rb.AddForce(Vector2.right * playerSpeed);
+            rb.AddForce(Vector2.right * playerSpeed  * Time.deltaTime);
         }
 
         if (Input.GetKey("s"))
         {
-            rb.AddForce(Vector2.down * playerSpeed);
+            rb.AddForce(Vector2.down * playerSpeed  * Time.deltaTime);
 
         }
 

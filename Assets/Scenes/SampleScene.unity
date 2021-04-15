@@ -609,9 +609,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104410fdfe448844eaa4f6a66d49a6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSpeed: 10
-  speedDV: 10
-  catchUpDistance: 5
+  targetSpeed: 0
+  speedDV: 0
+  catchUpDistance: 0
+  speed: 10
 --- !u!114 &193351485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5022,7 +5023,7 @@ MonoBehaviour:
     m_Bits: 256
   aIPath: {fileID: 0}
   startPos: {x: 0, y: 0}
-  playerSpeed: 100
+  playerSpeed: 6000
   maxSpeed: 0
   isMoving: 0
   maxStrength: 5000
