@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private TorchCollider torchCollider;
     private float currentSpeed;
     private Transform powerUpSpriteMask;
+    public float playerSpeed;
+    public float maxSpeed;
+    public bool isMoving = false;
 
     public float maxStrength = 100000000000f;
     public float forceStrength = 10000f;
@@ -42,7 +45,7 @@ public class PlayerController : MonoBehaviour
         startPos = transform.position;
         joint.enabled = false;
 
-        
+
         torchInnerRadius = torch.pointLightInnerRadius;
         torchOuterRadius = torch.pointLightOuterRadius;
         torchInnerAngle = torch.pointLightInnerAngle;
@@ -96,33 +99,40 @@ public class PlayerController : MonoBehaviour
             powerUpSpriteMask.localScale = new Vector2(0, 0);
         }
 
-        if (Input.GetKey("w"))
-        {
-            rb.AddForce(Vector2.up * 5);
-        }
 
-        if (Input.GetKey("a"))
-        {
-            rb.AddForce(Vector2.left * 5);
-        }
-
-        if (Input.GetKey("d"))
-        {
-            rb.AddForce(Vector2.right * 5);
-        }
-
-        if (Input.GetKey("s"))
-        {
-            rb.AddForce(Vector2.down * 5);
-
-        }
 
         if(Input.GetMouseButtonUp(0)) {
             torchCollider.GenerateCollider();
         }
         rb.velocity = rb.velocity * 0.99f;
+
+        isMoving = rb.velocity.x != 0 || rb.velocity.y != 0;
     }
 
+    void FixedUpdate()
+    {
+        if (Input.GetKey("w"))
+        {
+            rb.AddForce(Vector2.up * playerSpeed);
+        }
+
+        if (Input.GetKey("a"))
+        {
+            rb.AddForce(Vector2.left * playerSpeed);
+        }
+
+        if (Input.GetKey("d"))
+        {
+            rb.AddForce(Vector2.right * playerSpeed);
+        }
+
+        if (Input.GetKey("s"))
+        {
+            rb.AddForce(Vector2.down * playerSpeed);
+
+        }
+
+    }
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collide!");
