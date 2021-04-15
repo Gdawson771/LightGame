@@ -5023,7 +5023,7 @@ MonoBehaviour:
   rope: {fileID: 479366525}
   aIPath: {fileID: 0}
   startPos: {x: 0, y: 0}
-  playerSpeed: 10
+  playerSpeed: 50
   maxSpeed: 0
   isMoving: 0
   maxStrength: 5000
