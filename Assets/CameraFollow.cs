@@ -21,12 +21,11 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 target = new Vector3( player.transform.position.x, player.transform.position.y, transform.position.z);
         if(Vector3.Distance(transform.position, target) > catchUpDistance) {
-            Debug.Log("Here 2");
+            //Debug.Log("Here 2");
 
             targetSpeed += 0.1f;
         } else {
-            Debug.Log("Here 1");
-            Debug.Log(targetSpeed);
+            //Debug.Log("Here 1");
             targetSpeed = speed;
         }
         transform.position = Vector3.MoveTowards(transform.position, target, targetSpeed * Time.deltaTime);

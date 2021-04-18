@@ -21,7 +21,7 @@ public class CameraTrigger : MonoBehaviour
     void Update()
     {
         if(trigger) {
-        Debug.Log(cameraTarget);
+        //Debug.Log(cameraTarget);
             speed = Mathf.SmoothDamp(speed, targetSpeed, ref speedDV, 0.5f);
             camera.transform.position = Vector3.MoveTowards(camera.transform.position, cameraTarget, speed * Time.deltaTime);
         }

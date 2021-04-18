@@ -30,7 +30,6 @@ public class TorchCollider : MonoBehaviour
     public void GenerateCollider() {
 
         if(gameObject.GetComponent<PolygonCollider2D>() != null) {
-            Debug.Log("Destroy");
             Destroy(gameObject.GetComponent<PolygonCollider2D>());
         }
 
@@ -73,7 +72,11 @@ public class TorchCollider : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        col.gameObject.GetComponent<AIPath>().canMove = false;
+        if(col.transform.tag == "WalkerEnemy")
+            col.gameObject.GetComponent<AIPath>().canMove = false;
+        if(col.transform.tag == "LurkerEnemy")
+            col.gameObject.GetComponent<AIPath>().canMove = true;
+
     }
     void OnTriggerExit2D(Collider2D col)
     {

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - GrabObject
+  - Wall
+  - Enemy
+  - WalkerEnemy
+  - LurkerEnemy
   layers:
   - Default
   - TransparentFX
@@ -13,9 +17,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Player
   - EnemyObstacles
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -51,6 +55,12 @@ TagManager:
   - name: Player
     uniqueID: 2601503095
     locked: 0
+  - name: Enemy
+    uniqueID: 1072102817
+    locked: 0
   - name: Foreground
     uniqueID: 125449785
+    locked: 0
+  - name: UI
+    uniqueID: 1039938213
     locked: 0

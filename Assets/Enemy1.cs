@@ -18,5 +18,11 @@ public class Enemy1 : MonoBehaviour
 
     }
 
+    public void Die() 
+    {
+        Debug.Log("Die");
+        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
+    }
 
 }
