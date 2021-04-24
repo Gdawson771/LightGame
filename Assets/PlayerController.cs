@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask objects;
     public AIPath aIPath;
     public Vector2 startPos;
-    private GameManager gm;
-    private UnityEngine.Experimental.Rendering.Universal.Light2D torch;
-    private UnityEngine.Experimental.Rendering.Universal.Light2D gunfire;
-    private Rigidbody2D rb;
+    public GameManager gm;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D torch;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D gunfire;
+    public Rigidbody2D rb;
     private Vector2 startDrag;
 
     private TorchCollider torchCollider;
@@ -43,11 +43,9 @@ public class PlayerController : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         audioSource = gameObject.GetComponent<AudioSource>();
-        torch = gameObject.transform.Find("Torch").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         gunfire = gameObject.transform.Find("Gunfire").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         torchCollider = gameObject.transform.Find("Torch").GetComponent<TorchCollider>();
         rb.freezeRotation = true;
-        powerUpSpriteMask = gameObject.transform.Find("PowerUpSpriteMask");
         startPos = transform.position;
 
 
@@ -68,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
         // set vector of transform directly
         transform.up = Vector2.Lerp(transform.up, direction, 10f * Time.deltaTime);
-
         if (Input.GetMouseButtonDown(0))
         {
             torchToggled = !torchToggled;
@@ -123,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
         isMoving = rb.velocity.x != 0 || rb.velocity.y != 0;
 
-        if(lastShotFires + gunfireDuration < Time.time)
+        if (lastShotFires + gunfireDuration < Time.time)
             gunfire.enabled = false;
     }
 
