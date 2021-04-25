@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask objects;
     public AIPath aIPath;
     public Vector2 startPos;
-    public GameManager gm;
     public UnityEngine.Experimental.Rendering.Universal.Light2D torch;
     public UnityEngine.Experimental.Rendering.Universal.Light2D gunfire;
     public Rigidbody2D rb;
@@ -37,10 +36,12 @@ public class PlayerController : MonoBehaviour
 
     private float gunfireDuration = 0.1f;
     private float lastShotFires;
+    public bool dashing = false;
+
+    private bool deathInProgress = false;
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         audioSource = gameObject.GetComponent<AudioSource>();
         gunfire = gameObject.transform.Find("Gunfire").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
@@ -101,7 +102,6 @@ public class PlayerController : MonoBehaviour
             Vector2 releasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float angle = Helpers.AngleBetweenVector2(transform.position, releasePos);
             rb.AddForce(Helpers.AngleToForce(angle, forceStrength));
-            gm.incrementScore();
             powerUpSpriteMask.localScale = new Vector2(0, 0);
         }
 
@@ -126,6 +126,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(deathInProgress)
+            return;
+    
         if (Input.GetKey("w"))
         {
             rb.AddForce(Vector2.up * playerSpeed * Time.deltaTime);
@@ -149,9 +152,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("e"))
         {
             rb.AddForce(Vector2.down * playerSpeed * Time.deltaTime);
-
         }
-
+        if (Input.GetKey("space"))
+        {
+            if(!dashing) {
+                StartCoroutine(dashWaiter());
+            }
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -191,10 +198,40 @@ public class PlayerController : MonoBehaviour
     }
     public void Death()
     {
+        if(!deathInProgress)
+            StartCoroutine(deathWaiter());
+
+
+    }
+
+    IEnumerator deathWaiter()
+    {
+        deathInProgress = true;
+        rb.velocity = Vector3.zero;
+        //Rotate 90 deg
+        Vector3 localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, 0);
+
+        //Wait for 4 seconds
+        yield return new WaitForSeconds(1);
+
+        //Rotate 40 deg
+        Debug.Log(localScale);
+        transform.localScale = localScale;
         transform.position = startPos;
         rb.velocity = Vector2.zero;
 
-        gm.incrementScore();
+        deathInProgress = false;
     }
+    IEnumerator dashWaiter()
+    {
+        dashing = true;
+        Vector3 localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x * 2, transform.localScale.y * 2, 0);
+        //Wait for 4 seconds
+        yield return new WaitForSeconds(1.5f);
+        transform.localScale = localScale;
 
+        dashing = false;
+    }
 }

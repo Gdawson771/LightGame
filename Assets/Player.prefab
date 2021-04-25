@@ -355,7 +355,6 @@ MonoBehaviour:
     m_Bits: 256
   aIPath: {fileID: 0}
   startPos: {x: 0, y: 0}
-  gm: {fileID: 0}
   torch: {fileID: 4661603643987596631}
   gunfire: {fileID: 4661603642607956373}
   rb: {fileID: 4661603643264708638}
@@ -427,7 +426,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.83
+  m_Radius: 0.34
 --- !u!82 &4661603643264708834
 AudioSource:
   m_ObjectHideFlags: 0

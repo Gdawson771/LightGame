@@ -80,6 +80,7 @@ public class TorchCollider : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        col.gameObject.GetComponent<AIPath>().canMove = true;
+        if(col.transform.tag == "WalkerEnemy")
+            col.gameObject.GetComponent<AIPath>().canMove = true;
     }
 }
