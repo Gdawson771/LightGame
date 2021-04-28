@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     private TorchCollider torchCollider;
     private AudioSource audioSource;
+
+    private Animator playerAnimator;
     private float currentSpeed;
     private Transform powerUpSpriteMask;
     public float playerSpeed;
@@ -43,12 +45,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+
         audioSource = gameObject.GetComponent<AudioSource>();
         gunfire = gameObject.transform.Find("Gunfire").GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         torchCollider = gameObject.transform.Find("Torch").GetComponent<TorchCollider>();
         rb.freezeRotation = true;
         startPos = transform.position;
-
+        playerAnimator = gameObject.GetComponent<Animator>();
 
         torchInnerRadius = torch.pointLightInnerRadius;
         torchOuterRadius = torch.pointLightOuterRadius;
@@ -73,7 +76,6 @@ public class PlayerController : MonoBehaviour
         }
         if (torchToggled)
         {
-
             startDrag = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             torch.pointLightInnerRadius = Mathf.Lerp(torch.pointLightInnerRadius, 20f, torchSpeed * Time.deltaTime);
             torch.pointLightOuterRadius = Mathf.Lerp(torch.pointLightOuterRadius, 40f, torchSpeed * Time.deltaTime);
@@ -116,19 +118,32 @@ public class PlayerController : MonoBehaviour
         {
             torchCollider.GenerateCollider();
         }
-        rb.velocity = rb.velocity * 0.99f;
 
-        isMoving = rb.velocity.x != 0 || rb.velocity.y != 0;
+        isMoving = Mathf.Abs(rb.velocity.x) != 0 || Mathf.Abs(rb.velocity.y) != 0;
 
+
+        if (rb.velocity.magnitude > 0.1f)
+        {
+            rb.velocity = rb.velocity * 0.96f;
+
+            if (!dashing)
+                playerAnimator.SetBool("walking", true);
+
+        }
+        else
+        {
+            playerAnimator.SetBool("walking", false);
+            rb.velocity = new Vector3(0, 0, 0);
+        }
         if (lastShotFires + gunfireDuration < Time.time)
             gunfire.enabled = false;
     }
 
     void FixedUpdate()
     {
-        if(deathInProgress)
+        if (deathInProgress)
             return;
-    
+
         if (Input.GetKey("w"))
         {
             rb.AddForce(Vector2.up * playerSpeed * Time.deltaTime);
@@ -155,7 +170,8 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey("space"))
         {
-            if(!dashing) {
+            if (!dashing)
+            {
                 StartCoroutine(dashWaiter());
             }
         }
@@ -198,7 +214,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Death()
     {
-        if(!deathInProgress)
+        if (!deathInProgress)
             StartCoroutine(deathWaiter());
 
 
@@ -216,7 +232,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         //Rotate 40 deg
-        Debug.Log(localScale);
         transform.localScale = localScale;
         transform.position = startPos;
         rb.velocity = Vector2.zero;
@@ -226,6 +241,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator dashWaiter()
     {
         dashing = true;
+        playerAnimator.SetBool("dashing", true);
+
         Vector3 localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         transform.localScale = new Vector3(transform.localScale.x * 2, transform.localScale.y * 2, 0);
         //Wait for 4 seconds
@@ -233,5 +250,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = localScale;
 
         dashing = false;
+        playerAnimator.SetBool("dashing", false);
+
     }
 }

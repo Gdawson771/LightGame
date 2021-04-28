@@ -366,6 +366,7 @@ MonoBehaviour:
   forceStrength: 100
   sparksPrefab: {fileID: 1682610598377874454, guid: 8c83eeabcbd934a40940a602fe70cb25,
     type: 3}
+  dashing: 0
 --- !u!61 &4661603643264708636
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -426,7 +427,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.34
+  m_Radius: 0.03
 --- !u!82 &4661603643264708834
 AudioSource:
   m_ObjectHideFlags: 0
